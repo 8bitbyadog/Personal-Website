@@ -1,18 +1,9 @@
 import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react-swc'
-import { fileURLToPath } from 'url'
-import { dirname, resolve } from 'path'
-
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = dirname(__filename)
+import react from '@vitejs/plugin-react'
 
 export default defineConfig({
   plugins: [react()],
-  resolve: {
-    alias: {
-      '@': resolve(__dirname, './src'),
-    },
-  },
+  base: '/Personal-Website/',
   server: {
     port: 3000,
   },
