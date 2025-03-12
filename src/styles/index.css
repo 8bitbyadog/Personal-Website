@@ -1,0 +1,44 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  @font-face {
+    font-family: 'PixelFont';
+    src: url('/fonts/PressStart2P-Regular.ttf') format('truetype');
+  }
+
+  html {
+    @apply scroll-smooth;
+  }
+
+  body {
+    @apply bg-gray-900 font-sans antialiased;
+  }
+}
+
+@layer components {
+  .pixel-border {
+    @apply border-2 border-yellow-400 shadow-lg;
+    image-rendering: pixelated;
+  }
+
+  .pixel-button {
+    @apply px-6 py-3 bg-yellow-400 text-gray-900 font-bold transition-all duration-200
+           hover:bg-yellow-300 hover:scale-105 active:scale-95 pixel-border;
+  }
+
+  .nav-link {
+    @apply text-gray-300 hover:text-yellow-400 transition-colors duration-200;
+  }
+}
+
+@layer utilities {
+  .text-shadow-pixel {
+    text-shadow: 2px 2px 0 theme('colors.gray.900');
+  }
+
+  .pixel-perfect {
+    image-rendering: pixelated;
+  }
+} 
