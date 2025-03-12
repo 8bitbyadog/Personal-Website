@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Link } from 'react-router-dom';
 
 const Header: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -15,9 +16,10 @@ const Header: React.FC = () => {
   }, []);
 
   const navItems = [
+    { name: 'Home', href: '/' },
     { name: 'Portfolio', href: '#portfolio' },
+    { name: 'Sketchbooks', href: '/sketchbooks' },
     { name: 'About', href: '#about' },
-    { name: 'Blog', href: '#blog' },
     { name: 'Contact', href: '#contact' },
   ];
 
@@ -34,24 +36,30 @@ const Header: React.FC = () => {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5 }}
           >
-            <a href="#" className="font-pixel text-2xl text-yellow-400 hover:text-yellow-300 transition-colors">
+            <Link to="/" className="font-pixel text-2xl text-yellow-400 hover:text-yellow-300 transition-colors">
               8bitbyadog
-            </a>
+            </Link>
           </motion.div>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
             {navItems.map((item, index) => (
-              <motion.a
+              <motion.div
                 key={item.name}
-                href={item.href}
-                className="nav-link font-pixel text-sm"
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
               >
-                {item.name}
-              </motion.a>
+                {item.href.startsWith('#') ? (
+                  <a href={item.href} className="nav-link font-pixel text-sm">
+                    {item.name}
+                  </a>
+                ) : (
+                  <Link to={item.href} className="nav-link font-pixel text-sm">
+                    {item.name}
+                  </Link>
+                )}
+              </motion.div>
             ))}
             <motion.button
               className="pixel-button text-sm"
@@ -98,14 +106,25 @@ const Header: React.FC = () => {
             >
               <div className="flex flex-col space-y-4">
                 {navItems.map((item) => (
-                  <a
-                    key={item.name}
-                    href={item.href}
-                    className="nav-link font-pixel text-sm py-2"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
-                    {item.name}
-                  </a>
+                  item.href.startsWith('#') ? (
+                    <a
+                      key={item.name}
+                      href={item.href}
+                      className="nav-link font-pixel text-sm py-2"
+                      onClick={() => setIsMobileMenuOpen(false)}
+                    >
+                      {item.name}
+                    </a>
+                  ) : (
+                    <Link
+                      key={item.name}
+                      to={item.href}
+                      className="nav-link font-pixel text-sm py-2"
+                      onClick={() => setIsMobileMenuOpen(false)}
+                    >
+                      {item.name}
+                    </Link>
+                  )
                 ))}
                 <button className="pixel-button text-sm w-full">Hire Me</button>
               </div>
